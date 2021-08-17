@@ -1,0 +1,22 @@
+name: "Upload SARIF"
+
+# The scheduled workflow runs 5 minutes per hour
+#
+on:
+  push:
+#  schedule:
+#    - cron: '55 23 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      # This steps checks out a copy of your repository.
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: gh-fortify-sast.sarif
